@@ -1,5 +1,7 @@
 ﻿using LinkShortener.DataTransferObjects;
 using LinkShortener.Interfaces;
+using System;
+using System.Collections.Generic;
 
 namespace LinkShortener.Services
 {
@@ -39,10 +41,13 @@ namespace LinkShortener.Services
 
 		public UserUri GetUriAndIncreaseCounter(string token)
 		{
-			var uri = _storage.GetByToken(token);
-			uri.ClickCounter++;
-			_storage.Update(uri);
-			return uri;
+			lock (new object())
+			{
+				var uri = _storage.GetByToken(token);
+				uri.ClickCounter++;
+				_storage.Update(uri);
+				return uri;
+			}
 		}
 
 		public IList<UserUri> GetAllUserUries(string creator)

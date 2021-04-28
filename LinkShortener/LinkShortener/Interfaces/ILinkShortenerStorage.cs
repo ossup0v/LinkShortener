@@ -1,4 +1,5 @@
 ﻿using LinkShortener.DataTransferObjects;
+using System.Collections.Generic;
 
 namespace LinkShortener.Interfaces
 {

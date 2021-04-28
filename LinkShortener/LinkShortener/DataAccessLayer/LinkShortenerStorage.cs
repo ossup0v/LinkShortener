@@ -1,6 +1,9 @@
 ﻿using LinkShortener.Configs;
 using LinkShortener.DataTransferObjects;
 using LinkShortener.Interfaces;
+using MongoDB.Driver;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LinkShortener.DataAccessLayer
 {
@@ -23,9 +26,9 @@ namespace LinkShortener.DataAccessLayer
 		}
 
 		public IList<UserUri> GetAll() => _uries.Find(o => true)
-																			 .ToList()
-																			 .Select(o=>o.ToUserUri())
-																			 .ToList();
+												.ToList()
+												.Select(o=>o.ToUserUri())
+												.ToList();
 
 		public IList<UserUri> GetByCreator(string creator)
 					=> _uries.Find(o => o.Creator == creator)
